@@ -43,16 +43,34 @@ def init():
 
 
 
+    # testHand = []
+    # testHand.append(card(2, "5", "dmd"))
+    # testHand.append(card(3, "5", "clb"))
+    # testHand.append(card(4, "9", "spd"))
+    # testHand.append(card(Q, "Q", "dmd"))
+    # testHand.append(card(6, "A", "hrt"))
+    # testHand.append(card(5, "4", "dmd"))
+    # testHand.append(card(3, "2", "dmd"))
+    #
+    # print(dealerObj.checkStraight(testHand))
+
+
+
     testHand = []
     testHand.append(card(2, "5", "dmd"))
-    testHand.append(card(3, "5", "dmd"))
+    testHand.append(card(3, "5", "clb"))
     testHand.append(card(4, "9", "spd"))
-    testHand.append(card(Q, "Q", "dmd"))
-    testHand.append(card(6, "A", "hrt"))
+    testHand.append(card(3, "Q", "dmd"))
+    testHand.append(card(2, "A", "hrt"))
     testHand.append(card(5, "4", "dmd"))
-    testHand.append(card(3, "2", "dmd"))
+    testHand.append(card(3, "2", "hrt"))
 
-    print(dealerObj.checkStraight(testHand))
+    print(dealerObj.checkFullHouse(testHand))
+
+    #TODO ace can be high or low for streights
+
+    #each will return an object that will contain the best 5 card hand, the original 7 card hand,
+    #  boolean value for weather hand was found, rank of highest card in the 5 card hand combo
 
 
 
