@@ -20,6 +20,8 @@ class agent():
     def act(self):
         print("Agent ", self.ID)
         #action = input("make your move: ")
+
+        ## First Iteration AI ##
         action = random.sample(["c","f","r"],1)
         print(action)
         if (action[0] == "r"):
@@ -27,6 +29,23 @@ class agent():
             print(int(value))
             action = "r " + str(int(value))
         return action
+        ########################
+
+        ## Second Iteration AI ##
+        rnd = random.random()
+        if (rnd < 0.1):
+            action = "f"
+        elif (rnd < 0.8):
+            action = "c"
+        else:
+            value = random.random() * self.stack
+            print(int(value))
+            action = "r " + str(int(value))
+
+        return action
+        #########################
+
+        
         # if(action == ""):
         #     print("Achtung!!!, Please input a recognized action!")
         #     return self.act()
