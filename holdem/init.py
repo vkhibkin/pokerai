@@ -1,91 +1,46 @@
 import sys
+
 from dealer import dealer
 from player import player
 from card import card
+from hand import hand
 
 ################################################################################
-
 def init():
 
-    dealerObj = dealer()
 
+    h = hand(1)
     J = 11
     Q = 12
     K = 13
     A = 14
 
-#    testHand = []
-#    testHand.append(card(5, "5", "dmd"))
-#    testHand.append(card(5, "5", "hrt"))
-#    testHand.append(card(5, "4", "clb"))
-#    testHand.append(card(2, "2", "dmd"))
-#    testHand.append(card(8, "9", "spd"))
-#    testHand.append(card(Q, "Q", "c;b"))
-#    testHand.append(card(A, "A", "hrt"))
-
-
-
-#    print(dealerObj.checkTwoPair(testHand))
-#    print(dealerObj.checkThreeOfKind(testHand))
-#    print(dealerObj.checkFourOfKind(testHand))
-
-
-#    testHand = []
-#    testHand.append(card(5, "5", "dmd"))
-#    testHand.append(card(5, "5", "dmd"))
-#    testHand.append(card(8, "9", "spd"))
-#    testHand.append(card(Q, "Q", "dmd"))
-#    testHand.append(card(A, "A", "hrt"))
-#    testHand.append(card(5, "4", "dmd"))
-#    testHand.append(card(2, "2", "dmd"))
-
-#    print(dealerObj.checkFlush(testHand))
-
-
-
-    # testHand = []
-    # testHand.append(card(2, "5", "dmd"))
-    # testHand.append(card(3, "5", "clb"))
-    # testHand.append(card(4, "9", "spd"))
-    # testHand.append(card(Q, "Q", "dmd"))
-    # testHand.append(card(6, "A", "hrt"))
-    # testHand.append(card(5, "4", "dmd"))
-    # testHand.append(card(3, "2", "dmd"))
-    #
-    # print(dealerObj.checkStraight(testHand))
-
-
-
     testHand = []
-    testHand.append(card(2, "5", "dmd"))
-    testHand.append(card(3, "5", "clb"))
-    testHand.append(card(4, "9", "spd"))
-    testHand.append(card(3, "Q", "dmd"))
-    testHand.append(card(2, "A", "hrt"))
-    testHand.append(card(5, "4", "dmd"))
-    testHand.append(card(3, "2", "hrt"))
-
-    print(dealerObj.checkFullHouse(testHand))
-
-    #TODO ace can be high or low for streights
-
-    #each will return an object that will contain the best 5 card hand, the original 7 card hand,
-    #  boolean value for weather hand was found, rank of highest card in the 5 card hand combo
 
 
+    # testHand.append(card(5, "5", "dmd"))
+    # testHand.append(card(5, "5", "hrt"))
+    # testHand.append(card(4, "4", "clb"))
+    # testHand.append(card(2, "2", "dmd"))
+    # testHand.append(card(3, "3", "spd"))
+    # testHand.append(card(Q, "Q", "c;b"))
+    # testHand.append(card(A, "A", "hrt"))
+
+    # testHand.append(card(3, "5", "dmd"))
+    # testHand.append(card(J, "5", "hrt"))
+    # testHand.append(card(10, "4", "clb"))
+    # testHand.append(card(9, "2", "dmd"))
+    # testHand.append(card(K, "3", "spd"))
+    # testHand.append(card(Q, "Q", "c;b"))
+    # testHand.append(card(2, "A", "hrt"))
 
 
+    #h.updateHand(testHand)
 
+    #print(h.hand_rank, ", ", h.highCard)
 
+    start_table()
 
-
-
-    #if(sys.argv[1] == "start"):
-    #    start_table()
-    #elif(sys.argv[1] == "join"):
-    #    join_table()
-    #else:
-    #    print("no starting argument provided")
 
 
 ################################################################################
@@ -95,7 +50,7 @@ def start_table():
     dealerObj = dealer()
     players.append(player(1, dealerObj))
     players.append(player(2, dealerObj))
-    players.append(player(3, dealerObj))
+    #players.append(player(3, dealerObj))
 
 
     #flag to keep track of which round of the game is curently in progress
@@ -111,9 +66,9 @@ def start_table():
     while(True):
 
 
+
         ## if start of new game
         if(gameRound == 0):
-
 
             #first check who won the previous round which will destribute the winnings to that player
             dealerObj.checkWinner(gameCount, players)
@@ -133,14 +88,13 @@ def start_table():
             dealerObj.river()
             dealerObj.printBoard()
 
-
-
-
-
-
+        #Make sure each player updates their hand value
+        for p in players:
+            p.calculateHand()
 
         # start the betting loop
         betting_finished = False
+
 
         #check if betting is needed atall maybe only one player left unfolded
         if(dealerObj.bettingNeeded() == True):

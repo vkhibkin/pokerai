@@ -1,6 +1,6 @@
 from deck import deck
 from player import player
-
+from hand import hand
 
 
 ## Need a dictionary of moves here...
@@ -67,14 +67,11 @@ class dealer():
             id = player.ID
             card1.ID = id
             card2.ID = id
-            player.hand(card1, card2)
+            player.handCards(card1, card2)
 
 
         self.curentPot[smallBlindIndex] += players[smallBlindIndex].sub(1)
         self.curentPot[bigBlindIndex] += players[bigBlindIndex].sub(2)
-
-
-
 
         return curentPlayerIndex
 
@@ -161,7 +158,6 @@ class dealer():
         if(nummber_of_players_wating_to_bet > 0):
             return False
         else:
-
             for ind in range(0, len(players)):
                 self.pot[ind] += self.curentPot[ind]
                 self.curentPot[ind] = 0
@@ -190,227 +186,38 @@ class dealer():
         if(gameCount == 0):
             return
 
+        totalWining = 0;
+        for p in self.pot:
+            totalWining += p
+
         #check who has folded
 
-        playerHandRank = []
+
+        playerHand = []
         for ind in range(0, len(players)):
-            playerHandRank.append(0)
+            if(self.playerActions[ind] != "f"):
+                players[ind].calculateHand()
+                playerHand.append(players[ind].hand)
 
-            if(self.playerActions[ind] == "f"):
-                playerHandRank[ind] = -1
-            else:
-                totalHand = [
-                self.board[0],
-                self.board[1],
-                self.board[2],
-                self.board[3],
-                self.board[4],
-                players[ind].card1,
-                players[ind].card2]
 
+        if(len(playerHand) == 1):
+            playerHand[0].playerParent.add(totalWining)
+            return
 
+        playerHand.sort(key = lambda h: h.hand_rank, reverse=True)
 
 
 
+        if(playerHand[0].hand_rank == playerHand[1].hand_rank):
+            playerHand.sort(key = lambda h: h.highCard, reverse=True)
 
+            if(playerHand[0].highCard == playerHand[1].highCard):
+                playerHand[0].playerParent.add(totalWining / 2)
+                playerHand[1].playerParent.add(totalWining / 2)
+                return
 
+        playerHand[0].playerParent.add(totalWining)
 
-        # 1. Royal flush
-        # 2. Straight flush
-        # 3. Four of a Kind
-        # 4. Full house
-        # 5. Flush
-        # 6. Straight
-        # 7. Three of a kind
-        # 8. Two pair
-        # 9. Pair
-
-        #NOTE: dont forget to check for ties
-
-
-    ##################################################
-    #def checkRoyalFlush(self, totalHand):
-
-    #This one is easy there are only 4 combintation that match.
-    #check for those combinations.
-
-
-    ##################################################
-    #def checkStraightFlush(self, totalHand):
-
-    #check streight, put the streight in to a separate array
-    # then check that array for a flush.
-
-    ##################################################
-    def checkFourOfKind(self, totalHand):
-        totalHand.sort(key = lambda card: card.ind_val)
-
-        trips_found = 0;
-        for i in range(0, len(totalHand) - 3):
-            if(totalHand[i].ind_val == totalHand[i + 1].ind_val
-               and totalHand[i].ind_val == totalHand[i + 2].ind_val
-                and totalHand[i].ind_val == totalHand[i + 3].ind_val):
-                return True
-
-        return False
-
-    ##################################################
-    def checkFullHouse(self, totalHand):
-        totalHand.sort(key = lambda card: card.ind_val, reverse=True)
-        for card in totalHand:
-            print(card.ind_val)
-        print("moo...")
-
-
-
-
-
-        #TODO:
-        #what if its a situation where we have 3 of a kind and 3 of kind together.
-        #not sure if that needs to be handled. might not make a difference
-
-        #2,2,3,3,3 vs 2,2,4,4,4,
-        #2,2,3,3,3 vs 2,2,2,4,4,
-
-
-
-        three_of_a_kind_found = False
-        #first find three of a kind and remove from deck.
-        for i in range(0, len(totalHand) - 2):
-            #print(totalHand[i].ind_val)
-            if(totalHand[i].ind_val == totalHand[i + 1].ind_val and totalHand[i].ind_val == totalHand[i + 2].ind_val):
-                three_of_a_kind_found =  True
-
-                print(totalHand[i].ind_val,",",totalHand[i + 1].ind_val,",",totalHand[i + 2].ind_val)
-
-                totalHand.pop(i)
-                totalHand.pop(i)
-                totalHand.pop(i)
-
-                break
-
-
-        print("moo2...")
-        for card in totalHand:
-            print(card.ind_val)
-
-        #then try to find a pair and remove from hand
-        if(three_of_a_kind_found):
-            for i in range(0, len(totalHand) - 1):
-                if(totalHand[i].ind_val == totalHand[i + 1].ind_val):
-                    return True
-
-
-
-
-        return False
-
-    #fisr check for a pair and remove it from array put it in a diferent array
-    #then find a 3 of a kind and remove that.
-
-
-    ##################################################
-    def checkFlush(self, totalHand):
-        totalHand.sort(key = lambda card: card.suit)
-        for i in range(0, len(totalHand) - 4):
-            if(totalHand[i].suit == totalHand[i + 1].suit and totalHand[i].suit == totalHand[i + 2].suit
-                and totalHand[i].suit == totalHand[i + 3].suit and totalHand[i].suit == totalHand[i + 4].suit):
-                return True
-
-        return False
-
-    ##################################################
-    def checkStraight(self, totalHand):
-        totalHand_new_list = list(totalHand)
-        indexes_to_pop = []
-
-        for i in range(0, len(totalHand)):
-            for j in range(i+1, len(totalHand)):
-
-                if(totalHand[i].ind_val == totalHand[j].ind_val):
-                    #print(i,"-",j,": ",totalHand[i].ind_val,"==",totalHand[j].ind_val)
-                    indexes_to_pop.append(j)
-                #else:
-                    #print(i,"-",j,": ",totalHand[i].ind_val,"!=",totalHand[j].ind_val)
-
-        for ind in indexes_to_pop:
-            totalHand_new_list.pop(ind)
-
-        totalHand_new_list.sort(key = lambda card: card.ind_val)
-
-        if(len(totalHand_new_list) < 5):
-            return False
-
-
-        elif(len(totalHand_new_list) == 5):
-            for i in range(0, len(totalHand_new_list) - 6):
-
-                if(totalHand_new_list[i].ind_val == (totalHand_new_list[i + 1].ind_val - 1)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 2].ind_val - 2)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 3].ind_val - 3)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 4].ind_val - 4)):
-                    return True
-        elif(len(totalHand_new_list) == 6):
-
-            for i in range(0, len(totalHand_new_list) - 5):
-
-
-                if(totalHand_new_list[i].ind_val == (totalHand_new_list[i + 1].ind_val - 1)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 2].ind_val - 2)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 3].ind_val - 3)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 4].ind_val - 4)):
-                    return True
-        elif(len(totalHand_new_list) == 7):
-            for i in range(0, len(totalHand_new_list) - 4):
-
-                if(totalHand_new_list[i].ind_val == (totalHand_new_list[i + 1].ind_val - 1)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 2].ind_val - 2)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 3].ind_val - 3)
-                    and totalHand_new_list[i].ind_val == (totalHand_new_list[i + 4].ind_val - 4)):
-                    return True
-
-        return False
-
-    ##################################################
-    def checkThreeOfKind(self, totalHand):
-        totalHand.sort(key = lambda card: card.ind_val)
-
-        for i in range(0, len(totalHand) - 2):
-            if(totalHand[i].ind_val == totalHand[i + 1].ind_val and totalHand[i].ind_val == totalHand[i + 2].ind_val):
-                return True
-
-        return False
-
-    ##################################################
-    def checkTwoPair(self, totalHand):
-        #NOTE this algorythm will treat a 3 of a kind as 2 pair
-        #and fiirther 4 of a kind as a 3 pair
-        #however that is ok for now since will be first checking a hand
-        #for theose
-
-        #TODO if there are 3 sets of pairs then we need to make sure to grab the highest 2.
-
-        #TODO: Comapring two hands with two paris if both sets of pairs are the same
-        # for example 2,2,3,3,A and 2,2,3,3,K the high card is the Ace so it should win,
-        #this is a fringe situation but must be handled.
-
-        totalHand.sort(key = lambda card: card.ind_val)
-
-        pairs_found = 0;
-        for i in range(0, len(totalHand) - 1):
-            if(totalHand[i].ind_val == totalHand[i + 1].ind_val):
-                pairs_found += 1
-
-
-        return pairs_found
-
-    ##################################################
-    def checkPair(self, totalHand):
-        #TODO this compares each card to it self, so always returns true
-        for C in totalHand:
-            for c in totalHand:
-                if(c.ind_val == C.ind_val):
-                    return True
 
     ##################################################
     def printBoard(self):
