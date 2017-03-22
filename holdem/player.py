@@ -23,7 +23,7 @@ class player():
     ##################################################
     def calculateHand(self):
         board = self.dealer.board
-        listOfCards = [self.card1, self.card1]
+        listOfCards = [self.card1, self.card2]
 
         for card in board:
             if(card != None):

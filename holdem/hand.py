@@ -159,18 +159,19 @@ class hand():
 
     ##################################################
     def checkStraight(self, totalHand):
-        return False
-        totalHand = list(totalHand)
-        indexesToPop = []
+        self.printHand(totalHand)
+        tempHand = []
 
         for i in range(0, len(totalHand)):
+            cardIsUnique = True
             for j in range(i+1, len(totalHand)):
                 if(totalHand[i].ind_val == totalHand[j].ind_val):
-                    indexesToPop.append(j)
+                    cardIsUnique = False
 
-        for ind in indexesToPop:
-            totalHand.pop(ind)
+            if(cardIsUnique == True):
+                tempHand.append(totalHand[i])
 
+        totalHand = list(tempHand)
         totalHand.sort(key = lambda card: card.ind_val)
 
         if(len(totalHand) < 5):
@@ -244,3 +245,13 @@ class hand():
         #print(totalHand[0].ind_val)
         totalHand.sort(key = lambda card: card.ind_val, reverse=True)
         return totalHand[0].ind_val
+
+    ##################################################
+    def printHand(self, totalHand):
+        listOfCardString = []
+        for c in totalHand:
+            if(c != None):
+                listOfCardString.append(c.name + " " + c.suit)
+            else:
+                listOfCardString.append(None)
+        print("hand: ", listOfCardString)
