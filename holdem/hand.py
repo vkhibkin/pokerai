@@ -98,62 +98,36 @@ class hand():
 
     ##################################################
     def checkFullHouse(self, totalHand):
-        return False
+        totalHand = list(totalHand)
         totalHand.sort(key = lambda card: card.ind_val, reverse=True)
-        for card in totalHand:
-            print(card.ind_val)
-        print("moo...")
-
-
-        #TODO:
-        #what if its a situation where we have 3 of a kind and 3 of kind together.
-        #not sure if that needs to be handled. might not make a difference
-
-        #2,2,3,3,3 vs 2,2,4,4,4,
-        #2,2,3,3,3 vs 2,2,2,4,4,
-
-
+        bestHand = []
 
         three_of_a_kind_found = False
-        #first find three of a kind and remove from deck.
         for i in range(0, len(totalHand) - 2):
-            #print(totalHand[i].ind_val)
             if(totalHand[i].ind_val == totalHand[i + 1].ind_val and totalHand[i].ind_val == totalHand[i + 2].ind_val):
                 three_of_a_kind_found =  True
-
-                print(totalHand[i].ind_val,",",totalHand[i + 1].ind_val,",",totalHand[i + 2].ind_val)
-
-                totalHand.pop(i)
-                totalHand.pop(i)
-                totalHand.pop(i)
-
+                bestHand.append(totalHand.pop(i))
+                bestHand.append(totalHand.pop(i))
+                bestHand.append(totalHand.pop(i))
                 break
 
-
-        print("moo2...")
-        for card in totalHand:
-            print(card.ind_val)
-
-        #then try to find a pair and remove from hand
         if(three_of_a_kind_found):
             for i in range(0, len(totalHand) - 1):
                 if(totalHand[i].ind_val == totalHand[i + 1].ind_val):
-                    return True
+                    bestHand.append(totalHand[i])
+                    bestHand.append(totalHand[i + 1])
+                    return bestHand
 
         return False
-
-    #fisr check for a pair and remove it from array put it in a diferent array
-    #then find a 3 of a kind and remove that.
-
 
     ##################################################
     def checkFlush(self, totalHand):
-        return False
+        totalHand = list(totalHand)
         totalHand.sort(key = lambda card: card.suit)
         for i in range(0, len(totalHand) - 4):
             if(totalHand[i].suit == totalHand[i + 1].suit and totalHand[i].suit == totalHand[i + 2].suit
                 and totalHand[i].suit == totalHand[i + 3].suit and totalHand[i].suit == totalHand[i + 4].suit):
-                return True
+                return [totalHand[i], totalHand[i + 1], totalHand[i + 2], totalHand[i + 3], totalHand[i + 4]]
 
         return False
 

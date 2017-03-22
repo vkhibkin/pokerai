@@ -26,15 +26,15 @@ def init():
     # testHand.append(card(A, "A", "hrt"))
 
     # testHand.append(card(3, "5", "dmd"))
-    # testHand.append(card(J, "5", "hrt"))
+    # testHand.append(card(3, "5", "hrt"))
     # testHand.append(card(10, "4", "clb"))
     # testHand.append(card(9, "2", "dmd"))
-    # testHand.append(card(K, "3", "spd"))
+    # testHand.append(card(10, "3", "spd"))
     # testHand.append(card(Q, "Q", "c;b"))
-    # testHand.append(card(2, "A", "hrt"))
+    # testHand.append(card(3, "A", "hrt"))
 
-    #h.updateHand(testHand)
-    #print(h.hand_rank, ", ", h.highCard)
+    # h.updateHand(testHand)
+    # print(h.hand_rank, ", ", h.highCard)
 
     start_table()
 
