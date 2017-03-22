@@ -33,8 +33,8 @@ class player():
 
     ##################################################
     def act(self):
-        print("Player ", self.ID)
-        action = input("make your move: ")
+        print("Player ", self.ID, "make your move." )
+        action = input(": ")
 
         if(action == ""):
             print("Achtung!!!, Please input a recognized action!")

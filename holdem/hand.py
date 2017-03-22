@@ -63,7 +63,6 @@ class hand():
             self.highCard = self.findHighCard(twoPair)
         elif(pair != False):
             self.hand_rank = 1
-            print(pair)
             self.highCard = self.findHighCard(pair)
         else:
             self.hand_rank = 0

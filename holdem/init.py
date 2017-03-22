@@ -17,7 +17,6 @@ def init():
 
     testHand = []
 
-
     # testHand.append(card(5, "5", "dmd"))
     # testHand.append(card(5, "5", "hrt"))
     # testHand.append(card(4, "4", "clb"))
@@ -34,9 +33,7 @@ def init():
     # testHand.append(card(Q, "Q", "c;b"))
     # testHand.append(card(2, "A", "hrt"))
 
-
     #h.updateHand(testHand)
-
     #print(h.hand_rank, ", ", h.highCard)
 
     start_table()
@@ -64,28 +61,23 @@ def start_table():
     dealerPlayerIndex = -1
 
     while(True):
-
-
-
         ## if start of new game
         if(gameRound == 0):
-
             #first check who won the previous round which will destribute the winnings to that player
             dealerObj.checkWinner(gameCount, players)
-
-
             dealerPlayerIndex = (dealerPlayerIndex + 1) % len(players)
             gameCount += 1
             # deal the cards which will reset the pot the game and all other stuff.
             curentPlayerIndex = dealerObj.deal(players, dealerPlayerIndex)
+            dealerObj.printBoard()
         if(gameRound == 1):
-            dealerObj.flop()
+            curentPlayerIndex = dealerObj.flop(players, dealerPlayerIndex)
             dealerObj.printBoard()
         if(gameRound == 2):
-            dealerObj.turn()
+            curentPlayerIndex = dealerObj.turn(players, dealerPlayerIndex)
             dealerObj.printBoard()
         if(gameRound == 3):
-            dealerObj.river()
+            curentPlayerIndex = dealerObj.river(players, dealerPlayerIndex)
             dealerObj.printBoard()
 
         #Make sure each player updates their hand value
@@ -97,14 +89,12 @@ def start_table():
 
 
         #check if betting is needed atall maybe only one player left unfolded
-        if(dealerObj.bettingNeeded() == True):
+        if(dealerObj.bettingNeeded(players) == True):
             while(betting_finished == False):
-                print("moo")
                 # promt player for action
                 action = players[curentPlayerIndex].act()
                 curentPlayerIndex = dealerObj.handleAction(action, players, curentPlayerIndex)
                 betting_finished = dealerObj.isBettingFinsihed(players, curentPlayerIndex)
-
 
             gameRound = (gameRound + 1) % 4
 
@@ -113,33 +103,9 @@ def start_table():
             gameRound = 0
 
 
-            # process player action by giving it the dealer
-            # dealer returns if betting is finished which
-            # automaticaly update the betting_finished flag
-            # increment player to act
-
-
-
-        # determine which round of the game were in. there are
-            # 0 preflop
-            # 2 flop
-            # 3 turn
-            # 4 river
-
 
 
     print("starting new table...")
-################################################################################
-def join_table():
-    print("joining existing table...")
-
 
 ################################################################################
-
 init()
-
-##   https://wiki.python.org/moin/TcpCommunication
-##   we also ave a join game method
-    ##while(True):
-    ##    person = input('Enter your name: ')
-    ##    print('Hello', person)
