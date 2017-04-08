@@ -1,3 +1,6 @@
+import copy
+
+from hand import hand
 
 ################################################################################
 class player():
@@ -6,19 +9,32 @@ class player():
         self.dealer = dealer
         self.card1 = None
         self.card2 = None
+        self.hand = hand(self)
+
         self.stack = 500
 
     ##################################################
-    def hand(self, card1, card2):
+    def handCards(self, card1, card2):
         self.card1 = card1
         self.card2 = card2
         #h get print out of all the actions
         #p get print out of curent state
 
     ##################################################
+    def calculateHand(self):
+        board = self.dealer.board
+        listOfCards = [self.card1, self.card2]
+
+        for card in board:
+            if(card != None):
+                listOfCards.append(card)
+
+        self.hand.updateHand(listOfCards)
+
+    ##################################################
     def act(self):
-        print("Player ", self.ID)
-        action = input("make your move: ")
+        print("Player ", self.ID, "make your move." )
+        action = input(": ")
 
         if(action == ""):
             print("Achtung!!!, Please input a recognized action!")
@@ -73,6 +89,7 @@ class player():
 
     ##################################################
     def add(self, amount):
+        print("add: ", amount)
         self.stack = self.stack + amount
 
 ################################################################################
