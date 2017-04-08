@@ -8,7 +8,6 @@ class deck():
         self.topCardInd = 0;
 
         self.deck_ar = [];
-        self.deck_ar.append(card(1, "1", "spd"))
         self.deck_ar.append(card(2, "2", "spd"))
         self.deck_ar.append(card(3, "3", "spd"))
         self.deck_ar.append(card(4, "4", "spd"))
@@ -22,7 +21,6 @@ class deck():
         self.deck_ar.append(card(12, "Q", "spd"))
         self.deck_ar.append(card(13, "K", "spd"))
         self.deck_ar.append(card(14, "A", "spd"))
-        self.deck_ar.append(card(1, "1", "hrt"))
         self.deck_ar.append(card(2, "2", "hrt"))
         self.deck_ar.append(card(3, "3", "hrt"))
         self.deck_ar.append(card(4, "4", "hrt"))
@@ -36,7 +34,6 @@ class deck():
         self.deck_ar.append(card(12, "Q", "hrt"))
         self.deck_ar.append(card(13, "K", "hrt"))
         self.deck_ar.append(card(14, "A", "hrt"))
-        self.deck_ar.append(card(1, "1", "dmd"))
         self.deck_ar.append(card(2, "2", "dmd"))
         self.deck_ar.append(card(3, "3", "dmd"))
         self.deck_ar.append(card(4, "4", "dmd"))
@@ -50,7 +47,6 @@ class deck():
         self.deck_ar.append(card(12, "Q", "dmd"))
         self.deck_ar.append(card(13, "K", "dmd"))
         self.deck_ar.append(card(14, "A", "dmd"))
-        self.deck_ar.append(card(1, "1", "clb"))
         self.deck_ar.append(card(2, "2", "clb"))
         self.deck_ar.append(card(3, "3", "clb"))
         self.deck_ar.append(card(4, "4", "clb"))

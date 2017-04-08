@@ -10,11 +10,22 @@ class agent():
         self.stack = 500
 
     ##################################################
-    def hand(self, card1, card2):
+    def handCards(self, card1, card2):
         self.card1 = card1
         self.card2 = card2
         #h get print out of all the actions
         #p get print out of curent state
+
+    ##################################################
+    def calculateHand(self):
+        board = self.dealer.board
+        listOfCards = [self.card1, self.card1]
+
+        for card in board:
+            if(card != None):
+                listOfCards.append(card)
+
+        self.hand.updateHand(listOfCards)
 
     ##################################################
     def act(self):
