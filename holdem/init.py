@@ -93,7 +93,7 @@ def start_table():
         betting_finished = False
 
 
-        #check if betting is needed atall maybe only one player left unfolded
+        #check if betting is needed at all maybe only one player left unfolded
         if(dealerObj.bettingNeeded(players) == True):
             while(betting_finished == False):
                 # promt player for action

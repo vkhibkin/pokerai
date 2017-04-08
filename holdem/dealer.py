@@ -116,6 +116,11 @@ class dealer():
 
     ##################################################
     def flop(self, players, dealerPlayerIndex):
+
+        for ind in range(0, len(players)):
+            if(self.playerActions[ind] != "f"):
+                self.playerActions[ind] = ""
+
         self.board[0] = self.deck.topCard()
         self.board[1] = self.deck.topCard()
         self.board[2] = self.deck.topCard()
@@ -125,7 +130,20 @@ class dealer():
 
     ##################################################
     def turn(self, players, dealerPlayerIndex):
+        for ind in range(0, len(players)):
+            if(self.playerActions[ind] != "f"):
+                self.playerActions[ind] = ""
         self.board[3] = self.deck.topCard()
+        numberOfPlayers = len(players)
+        curentPlayerIndex = (dealerPlayerIndex + 1) % numberOfPlayers
+        return curentPlayerIndex
+
+    ##################################################
+    def river(self, players, dealerPlayerIndex):
+        for ind in range(0, len(players)):
+            if(self.playerActions[ind] != "f"):
+                self.playerActions[ind] = ""
+        self.board[4] = self.deck.topCard()
         numberOfPlayers = len(players)
         curentPlayerIndex = (dealerPlayerIndex + 1) % numberOfPlayers
         return curentPlayerIndex
@@ -143,14 +161,7 @@ class dealer():
         else:
             return False
 
-
     ##################################################
-    def river(self, players, dealerPlayerIndex):
-        self.board[4] = self.deck.topCard()
-        numberOfPlayers = len(players)
-        curentPlayerIndex = (dealerPlayerIndex + 1) % numberOfPlayers
-        return curentPlayerIndex
-
     def checkWinner(self, gameCount, players):
         if(gameCount == 0):
             return
@@ -199,15 +210,11 @@ class dealer():
         print("Player 1 bet:", pot[0])
         print("Player 2 bet:", pot[1])
 
-
         cardsOnBoard = ""
 
         for c in self.board:
             if(c != None):
-
-
                 cardsOnBoard += " " + c.name + " " + c.suit
-
             else:
                 cardsOnBoard += " *"
 
