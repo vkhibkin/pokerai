@@ -1,3 +1,4 @@
+import os
 
 ################################################################################
 class hand():
@@ -85,6 +86,7 @@ class hand():
     ##################################################
     def checkFourOfKind(self, totalHand):
         return False
+        totalHand = list(totalHand)
         totalHand.sort(key = lambda card: card.ind_val)
 
         trips_found = 0
@@ -92,7 +94,7 @@ class hand():
             if(totalHand[i].ind_val == totalHand[i + 1].ind_val
                and totalHand[i].ind_val == totalHand[i + 2].ind_val
                 and totalHand[i].ind_val == totalHand[i + 3].ind_val):
-                return True
+                return [totalHand[i], totalHand[i + 1], totalHand[i + 2], totalHand[i + 3]]
 
         return False
 
@@ -133,7 +135,6 @@ class hand():
 
     ##################################################
     def checkStraight(self, totalHand):
-        self.printHand(totalHand)
         tempHand = []
 
         for i in range(0, len(totalHand)):

@@ -1,3 +1,5 @@
+import os
+
 from deck import deck
 from player import player
 from hand import hand
@@ -179,16 +181,37 @@ class dealer():
         playerHand[0].playerParent.add(totalWining)
 
     ##################################################
-    def printBoard(self):
-        print("BOARD INFORMATION...")
-        print("Whole pot: ", self.pot)
-        print("Partial pot: ", self.curentPot)
-        cardsOnBoard = []
+    def printBoard(self, roundName):
+        pot = [0,0]
+        pot[0] = self.pot[0] + self.curentPot[0]
+        pot[1] = self.pot[1] + self.curentPot[1]
+
+        total = pot[0] + pot[1]
+        total = "$"+str(total)
+        pot[0] = "$"+str(pot[0])
+        pot[1] = "$"+str(pot[1])
+
+        #os.system('cls' if os.name == 'nt' else 'clear')
+
+        print("-----------------------------------")
+        print(roundName)
+        print("Current pot value: ", total)
+        print("Player 1 bet:", pot[0])
+        print("Player 2 bet:", pot[1])
+
+
+        cardsOnBoard = ""
+
         for c in self.board:
             if(c != None):
-                cardsOnBoard.append(c.name + " " + c.suit)
+
+
+                cardsOnBoard += " " + c.name + " " + c.suit
+
             else:
-                cardsOnBoard.append(None)
-        print(cardsOnBoard)
+                cardsOnBoard += " *"
+
+        print("Board: ", cardsOnBoard)
+        print("")
 
 ################################################################################

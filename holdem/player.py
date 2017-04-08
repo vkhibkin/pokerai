@@ -33,7 +33,9 @@ class player():
 
     ##################################################
     def act(self):
-        print("Player ", self.ID, "make your move." )
+        #print("Player ", self.ID, "make your move." )
+        self.print()
+
         action = input(": ")
 
         if(action == ""):
@@ -46,7 +48,7 @@ class player():
             self.print()
             return self.act()
         elif(action[0] == "b"):
-            self.dealer.printBoard()
+            self.dealer.printBoard("")
             return self.act()
         elif(action[0] != "c" and action[0] != "f" and action[0] != "r"):
             print("Achtung!!!, ", action, " is not a recognized action!")
@@ -78,9 +80,11 @@ class player():
     ##################################################
     def print(self):
         print("")
-        print("player: ", self.ID)
-        print("hand ", self.card1.name, " ",self.card1.suit, ", ", self.card2.name, " ", self.card2.suit)
-        print("stack: ", self.stack)
+        stack = "$"+str(self.stack)
+
+        print("Player: ", self.ID)
+        print("Current hand:", self.card1.name,"",self.card1.suit, ",", self.card2.name, "", self.card2.suit)
+        print("Stack:",stack)
 
     ##################################################
     def sub(self, amount):
