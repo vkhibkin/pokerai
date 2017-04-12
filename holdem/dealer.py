@@ -170,6 +170,7 @@ class dealer():
         for p in self.pot:
             totalWining += p
 
+        totalWiningString = "$"+str(totalWining)
         playerHand = []
         for ind in range(0, len(players)):
             if(self.playerActions[ind] != "f"):
@@ -178,18 +179,23 @@ class dealer():
 
         if(len(playerHand) == 1):
             playerHand[0].playerParent.add(totalWining)
+            print("Player", playerHand[0].playerParent.ID," wins:",totalWiningString)
+            a = input("ok: ")
             return
 
         playerHand.sort(key = lambda h: h.hand_rank, reverse=True)
         if(playerHand[0].hand_rank == playerHand[1].hand_rank):
             playerHand.sort(key = lambda h: h.highCard, reverse=True)
-
             if(playerHand[0].highCard == playerHand[1].highCard):
                 playerHand[0].playerParent.add(totalWining / 2)
                 playerHand[1].playerParent.add(totalWining / 2)
+                print("Players tie.")
+                a = input("ok: ")
                 return
 
+        print("Player", playerHand[0].playerParent.ID," wins:",totalWiningString)
         playerHand[0].playerParent.add(totalWining)
+        a = input("ok: ")
 
     ##################################################
     def printBoard(self, roundName):
@@ -202,8 +208,7 @@ class dealer():
         pot[0] = "$"+str(pot[0])
         pot[1] = "$"+str(pot[1])
 
-        #os.system('cls' if os.name == 'nt' else 'clear')
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         print("-----------------------------------")
         print(roundName)
         print("Current pot value: ", total)

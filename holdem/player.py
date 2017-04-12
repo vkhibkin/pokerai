@@ -1,4 +1,5 @@
 import copy
+import re
 
 from hand import hand
 
@@ -35,26 +36,38 @@ class player():
     def act(self):
         #print("Player ", self.ID, "make your move." )
         self.print()
+        action = self.processAction()
+		
+        return action
 
+    def processAction(self):
         action = input(": ")
-
         if(action == ""):
             print("Achtung!!!, Please input a recognized action!")
-            return self.act()
+            return self.processAction()
         if(action[0] == "h"):
             self.help()
-            return self.act()
+            return self.processAction()
         elif(action[0] == "p"):
             self.print()
             return self.act()
         elif(action[0] == "b"):
             self.dealer.printBoard("")
-            return self.act()
-        elif(action[0] != "c" and action[0] != "f" and action[0] != "r"):
+            return self.processAction()
+        elif(action[0] == "r"):
+            pattern = re.compile("^r\s[0-9]+$")
+            if(pattern.match(action)):
+                action = action
+            else:
+                print("Achtung!!!, Please input a recognized action!")
+                return self.processAction()
+
+        elif(action[0] != "c" and action[0] != "f"):
             print("Achtung!!!, ", action, " is not a recognized action!")
-            return self.act()
+            return self.processAction()
 
         return action
+
 
     # Dictionary of possible player actions
     #
@@ -93,7 +106,6 @@ class player():
 
     ##################################################
     def add(self, amount):
-        print("add: ", amount)
         self.stack = self.stack + amount
 
 ################################################################################
