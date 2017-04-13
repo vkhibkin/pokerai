@@ -71,21 +71,29 @@ class hand():
 
     ##################################################
     def checkRoyalFlush(self, totalHand):
+        totalHand = list(totalHand)
+        totalHand.sort(key = lambda card: card.ind_val, reverse=True)
+
+        if(totalHand[0].ind_val == 14 and totalHand[1].ind_val == 13
+        and totalHand[2].ind_val == 12 and totalHand[3].ind_val == 11
+        and totalHand[4].ind_val == 10):
+            return self.checkFlush([totalHand[0],totalHand[1],totalHand[2],totalHand[3],totalHand[4]])
+
         return False
-
-        #This one is easy there are only 4 combintation that match.
-        #check for those combinations.
-
 
     ##################################################
     def checkStraightFlush(self, totalHand):
-        return False
-    #check streight, put the streight in to a separate array
-    # then check that array for a flush.
+        #check streight, put the streight in to a separate array
+        # then check that array for a flush.
+        totalHand = self.checkStraight(totalHand)
+        if(totalHand != False):
+            totalHand = self.checkFlush(totalHand)
+            return totalHand
+        else:
+            return False
 
     ##################################################
     def checkFourOfKind(self, totalHand):
-        return False
         totalHand = list(totalHand)
         totalHand.sort(key = lambda card: card.ind_val)
 
