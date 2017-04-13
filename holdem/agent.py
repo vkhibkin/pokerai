@@ -1,4 +1,5 @@
 import random
+import os
 import numpy as np
 import math
 
@@ -86,7 +87,7 @@ class agent():
         #     self.print()
         #     return self.act()
         # elif(action[0] == "b"):
-        #     self.dealer.printBoard()
+        #     self.dealer.printBoard("")
         #     return self.act()
         # elif(action[0] != "c" and action[0] != "f" and action[0] != "r"):
         #     print("Achtung!!!, ", action, " is not a recognized action!")
