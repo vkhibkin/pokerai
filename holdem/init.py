@@ -1,4 +1,5 @@
 import sys
+import os
 
 from dealer import dealer
 from player import player
@@ -16,6 +17,10 @@ def init():
     A = 14
 
     testHand = []
+
+
+
+
 
     # testHand.append(card(5, "5", "dmd"))
     # testHand.append(card(5, "5", "hrt"))
@@ -69,16 +74,16 @@ def start_table():
             gameCount += 1
             # deal the cards which will reset the pot the game and all other stuff.
             curentPlayerIndex = dealerObj.deal(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("Pre-flop round: ")
         if(gameRound == 1):
             curentPlayerIndex = dealerObj.flop(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("Flop round: ")
         if(gameRound == 2):
             curentPlayerIndex = dealerObj.turn(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("Turn round: ")
         if(gameRound == 3):
             curentPlayerIndex = dealerObj.river(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("River round: ")
 
         #Make sure each player updates their hand value
         for p in players:
@@ -88,7 +93,7 @@ def start_table():
         betting_finished = False
 
 
-        #check if betting is needed atall maybe only one player left unfolded
+        #check if betting is needed at all maybe only one player left unfolded
         if(dealerObj.bettingNeeded(players) == True):
             while(betting_finished == False):
                 # promt player for action
