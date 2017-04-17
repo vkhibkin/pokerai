@@ -2,17 +2,20 @@ import random
 import os
 import numpy as np
 import math
+from hand import hand
+
 
 ################################################################################
 class agent():
-    def __init__(self, ID, dealer):
+    def __init__(self, ID, dealer, level):
         self.ID = ID
         self.dealer = dealer
         self.card1 = None
         self.card2 = None
+        self.hand = hand(self)
         self.stack = 500
-        self.level=3
-
+        self.level = level
+    
     ##################################################
     def handCards(self, card1, card2):
         self.card1 = card1
@@ -136,7 +139,7 @@ class agent():
                 score+=14
             elif tempValues[i] == 11:
                 score+=12
-            elif tempValues[i]>5
+            elif tempValues[i] > 5:
                 score+=tempValues[i]
             else:
                 score+=5  
@@ -159,7 +162,7 @@ class agent():
                 score+=1
         #step 6 Round half point scores up
 
-       score=round(score)         
+        score=round(score)         
         
             
                     
@@ -201,7 +204,7 @@ class agent():
     ##################################################
     def print(self):
         print("")
-        print("player: ", self.ID)
+        print("agent: ", self.ID)
         print("hand ", self.card1.name, " ",self.card1.suit, ", ", self.card2.name, " ", self.card2.suit)
         print("stack: ", self.stack)
 
