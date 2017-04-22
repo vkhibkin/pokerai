@@ -189,6 +189,8 @@ class dealer():
         if(playerHand[0].hand_rank == playerHand[1].hand_rank):
             playerHand.sort(key = lambda h: h.highCard, reverse=True)
             if(playerHand[0].highCard == playerHand[1].highCard):
+                players[0].recordGame(False)
+                players[1].recordGame(False)
                 playerHand[0].playerParent.add(totalWining / 2)
                 playerHand[1].playerParent.add(totalWining / 2)
                 winner.add("Tie",totalWining//2,playerHand[0].playerParent.hand.hand_rank)#======================
@@ -201,6 +203,8 @@ class dealer():
         playerHand[0].playerParent.add(totalWining)
         winner.add(playerHand[0].playerParent.ID,totalWining,playerHand[0].playerParent.hand.hand_rank) #=================
         winner.log() #=============================================
+        players[0].recordGame(True)
+        players[1].recordGame(False)
         a = input("ok: ")
 
     ##################################################
