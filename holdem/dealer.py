@@ -162,7 +162,7 @@ class dealer():
             return False
 
     ##################################################
-    def checkWinner(self, gameCount, players):
+    def checkWinner(self, gameCount, players,winner): #============================
         if(gameCount == 0):
             return
 
@@ -179,6 +179,8 @@ class dealer():
 
         if(len(playerHand) == 1):
             playerHand[0].playerParent.add(totalWining)
+            winner.add(playerHand[0].playerParent.ID,totalWining,playerHand[0].playerParent.hand.hand_rank) #=========================
+            winner.log() #=============================================
             print("Player", playerHand[0].playerParent.ID," wins:",totalWiningString)
             a = input("ok: ")
             return
@@ -189,12 +191,16 @@ class dealer():
             if(playerHand[0].highCard == playerHand[1].highCard):
                 playerHand[0].playerParent.add(totalWining / 2)
                 playerHand[1].playerParent.add(totalWining / 2)
+                winner.add("Tie",totalWining//2,playerHand[0].playerParent.hand.hand_rank)#======================
+                winner.log() #=============================================
                 print("Players tie.")
                 a = input("ok: ")
                 return
 
         print("Player", playerHand[0].playerParent.ID," wins:",totalWiningString)
         playerHand[0].playerParent.add(totalWining)
+        winner.add(playerHand[0].playerParent.ID,totalWining,playerHand[0].playerParent.hand.hand_rank) #=================
+        winner.log() #=============================================
         a = input("ok: ")
 
     ##################################################

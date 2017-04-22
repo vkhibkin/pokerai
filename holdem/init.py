@@ -6,6 +6,8 @@ from player import player
 from agent import agent
 from card import card
 from hand import hand
+from winner import winner #=========================
+from game import game#===========================================
 
 ################################################################################
 def init():
@@ -41,7 +43,8 @@ def init():
 
     # h.updateHand(testHand)
     # print(h.hand_rank, ", ", h.highCard)
-
+    
+    initLog()
     start_table()
 
 
@@ -49,30 +52,33 @@ def init():
 ################################################################################
 
 def start_table():
+    w=winner() #===========================================
     players = []
     dealerObj = dealer()
+    gameObj=game() #===========================================
+    players=gameObj.selectPlayers(dealerObj)#===========================================
 
-    level= input("Player 1 level (1-3) or person (0): ")
+  #  level= input("Player 1 level (1-3) or person (0): ")
 
-    
-    if level=="1":
-        players.append(agent(1, dealerObj,1))
-    elif int(level)=="2":
-        players.append(agent(1, dealerObj,2))
-    elif level=="3":
-        players.append(agent(1, dealerObj,3))
-    else:
-        players.append(player(1, dealerObj))
-    print(players[0])
-    level= int(input("Player 2 level (1-3) or person (0): "))
-    if level==1:
-        players.append(agent(2, dealerObj,1))
-    elif level==2:
-        players.append(agent(2, dealerObj,2))
-    elif level==3:
-        players.append(agent(2, dealerObj,3))
-    else:
-        players.append(player(2, dealerObj))
+    if(False):
+     if level=="1":
+         players.append(agent(1, dealerObj,1))
+     elif int(level)=="2":
+         players.append(agent(1, dealerObj,2))
+     elif level=="3":
+         players.append(agent(1, dealerObj,3))
+     else:
+         players.append(player(1, dealerObj))
+     print(players[0])
+     level= int(input("Player 2 level (1-3) or person (0): "))
+     if level==1:
+         players.append(agent(2, dealerObj,1))
+     elif level==2:
+         players.append(agent(2, dealerObj,2))
+     elif level==3:
+         players.append(agent(2, dealerObj,3))
+     else:
+         players.append(player(2, dealerObj))
     #players.append(player(3, dealerObj))
 
 
@@ -90,7 +96,7 @@ def start_table():
         ## if start of new game
         if(gameRound == 0):
             #first check who won the previous round which will destribute the winnings to that player
-            dealerObj.checkWinner(gameCount, players)
+            dealerObj.checkWinner(gameCount, players,w)#=================================================
             dealerPlayerIndex = (dealerPlayerIndex + 1) % len(players)
             gameCount += 1
             # deal the cards which will reset the pot the game and all other stuff.
@@ -130,9 +136,16 @@ def start_table():
             gameRound = 0
 
 
-
+    w.printStats() #=============================================
 
     print("starting new table...")
+
+################################################################################
+# Clears the log of previous Games
+def initLog():
+    file = open("gameLog.txt","w")
+    file.truncate(0);
+    file.write("\n*****************************************************\nTo See Statistics You Need to Finish at Least 1 Game\n*****************************************************")
 
 ################################################################################
 init()
