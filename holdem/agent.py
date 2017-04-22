@@ -66,21 +66,7 @@ class agent():
 
         ## Third Iteration AI ##
         elif self.level==3:
-            chenScore=0
-            chenScore=agent.CalculateChen(self)         
-            if chenScore>12:
-                action = "r " + str(round(.95 * self.stack))
-            elif chenScore>11:
-                action = "r " + str(round(.8 * self.stack))
-            elif chenScore>10:
-                action = "r " + str(round(.6 * self.stack))
-            elif chenScore> 9:
-                action = "r " + str(round(.4 * self.stack))
-            elif chenScore> 4:
-                action = "r " + str(round(.01 * self.stack))
-            else:
-                action = "f"
-            #print(action)    
+            action = agent.ThirdIteration(self, gameRound)
 
         return action  
 
@@ -108,7 +94,51 @@ class agent():
 
     # return action
 
-
+    def ThirdIteration(self,gameRound):
+        chenScore=0
+        chenScore=agent.CalculateChen(self)
+        if gameRound ==1:
+            if chenScore>12:
+                action = "r " + str(round(.09 * self.stack))
+            elif chenScore>11:
+                action = "r " + str(round(.08 * self.stack))
+            elif chenScore>10:
+                action = "r " + str(round(.06 * self.stack))
+            elif chenScore> 9:
+                action = "r " + str(round(.04 * self.stack))
+            else:
+                action = "f"
+        elif gameRound == 2:
+            if chenScore>12:
+                action = "r " + str(round(.09 * self.stack))
+            elif chenScore>11:
+                action = "r " + str(round(.08 * self.stack))
+            elif chenScore>10:
+                action = "r " + str(round(.06 * self.stack))
+            elif chenScore> 9:
+                action = "r " + str(round(.04 * self.stack))
+            elif chenScore> 8:
+                action = "r " + str(round(.03 * self.stack))
+            else:
+                action = "f"
+        else:
+            if chenScore>12:
+                action = "r " + str(round(.09 * self.stack))
+            elif chenScore>11:
+                action = "r " + str(round(.08 * self.stack))
+            elif chenScore>10:
+                action = "r " + str(round(.06 * self.stack))
+            elif chenScore> 9:
+                action = "r " + str(round(.05 * self.stack))
+            elif chenScore> 8:
+                action = "r " + str(round(.04 * self.stack))
+            elif chenScore> 7:
+                action = "r " + str(round(.03 * self.stack))
+            else:
+                action = "f"
+            #print(action)
+        return action
+    
     def CalculateChen(self):
         board = self.dealer.board
         listOfCards = [self.card1, self.card2]
