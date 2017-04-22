@@ -45,7 +45,7 @@ class agent():
             print(action)
             if (action[0] == "r"):
                 value = random.random() * self.stack
-                print(int(value))
+                #print(int(value))
                 action = "r " + str(int(value))
             
         ########################
@@ -66,11 +66,19 @@ class agent():
 
         ## Third Iteration AI ##
         elif self.level==3:
-            chenScore=CalculateChen(self)
-            if chenScore> 9:
-                action = "r" + str(int(random.random() * self.stack))
+            chenScore=0
+            chenScore=agent.CalculateChen(self)         
+            if chenScore>12:
+                action = "r " + str(round(.95 * self.stack))
+            elif chenScore>11:
+                action = "r " + str(round(.8 * self.stack))
+            elif chenScore>10:
+                action = "r " + str(round(.6 * self.stack))
+            elif chenScore> 9:
+                action = "r " + str(round(.4 * self.stack))
             else:
                 action = "f"
+            #print(action)    
 
         return action  
 
@@ -96,13 +104,13 @@ class agent():
         #     print("Achtung!!!, ", action, " is not a recognized action!")
         #     return self.act()
 
-        # return action
+    # return action
 
 
     def CalculateChen(self):
         board = self.dealer.board
         listOfCards = [self.card1, self.card2]
-        listOfAllCards
+        listOfAllCards =[]
         score = 0
         for x in board:
             if x != None:
@@ -110,7 +118,7 @@ class agent():
         # step 1: Score your highest card only
         highCard=0
         for x in listOfCards:
-            if x.ind_val>score1:
+            if x.ind_val>highCard:
                 highCard=x.ind_val
         if highCard==14:
             score+=10
@@ -122,7 +130,7 @@ class agent():
             score+=6
         else:
             score+=(highCard/2)
-        score+=score1
+        
 
         # step 2: Multiply pairs by 2 of one card’s value
         tempValues=[]
@@ -152,7 +160,7 @@ class agent():
             score+=2
 
         #step 4 Subtract points if their is a gap between the two cards.
-        gap=math.abs(listOfCards[0].ind_val-listOfCards[1].ind_val)
+        gap=abs(listOfCards[0].ind_val-listOfCards[1].ind_val)
         if gap<5:
             score-=gap
         else:
@@ -162,13 +170,14 @@ class agent():
                 score+=1
         #step 6 Round half point scores up
 
-        score=round(score)         
+        score=round(score)
+        return score
+    
         
-            
-                    
-                      
-            
+                
+                  
         
+    
 
 
 
@@ -179,8 +188,8 @@ class agent():
 
 
 
-        
-    # Dictionary of possible player actions
+    
+# Dictionary of possible player actions
     #
     # h: prints out this dictionary as a string
     # p: prints out the current player state
