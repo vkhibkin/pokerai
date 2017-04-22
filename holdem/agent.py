@@ -35,7 +35,7 @@ class agent():
         self.hand.updateHand(listOfCards)
 
     ##################################################
-    def act(self):
+    def act(self, gameRound):
         print("Agent ", self.ID)
         #action = input("make your move: ")
 
@@ -159,7 +159,7 @@ class agent():
         #    tempSuits.append(x.suit)
         #temp=np.unique(tempSuits)
         #if len(temp)>1:
-        if listOfCards[0]==listOfCards[1]
+        if listOfCards[0]==listOfCards[1]:
             score+=2
 
         #step 4 Subtract points if their is a gap between the two cards.
