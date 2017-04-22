@@ -1,7 +1,9 @@
 import sys
+import os
 
 from dealer import dealer
 from player import player
+from agent import agent
 from card import card
 from hand import hand
 
@@ -16,6 +18,10 @@ def init():
     A = 14
 
     testHand = []
+
+
+
+
 
     # testHand.append(card(5, "5", "dmd"))
     # testHand.append(card(5, "5", "hrt"))
@@ -45,8 +51,28 @@ def init():
 def start_table():
     players = []
     dealerObj = dealer()
-    players.append(player(1, dealerObj))
-    players.append(player(2, dealerObj))
+
+    level= input("Player 1 level (1-3) or person (0): ")
+
+    
+    if level=="1":
+        players.append(agent(1, dealerObj,1))
+    elif int(level)=="2":
+        players.append(agent(1, dealerObj,2))
+    elif level=="3":
+        players.append(agent(1, dealerObj,3))
+    else:
+        players.append(player(1, dealerObj))
+    print(players[0])
+    level= int(input("Player 2 level (1-3) or person (0): "))
+    if level==1:
+        players.append(agent(2, dealerObj,1))
+    elif level==2:
+        players.append(agent(2, dealerObj,2))
+    elif level==3:
+        players.append(agent(2, dealerObj,3))
+    else:
+        players.append(player(2, dealerObj))
     #players.append(player(3, dealerObj))
 
 
@@ -69,16 +95,16 @@ def start_table():
             gameCount += 1
             # deal the cards which will reset the pot the game and all other stuff.
             curentPlayerIndex = dealerObj.deal(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("Pre-flop round: ")
         if(gameRound == 1):
             curentPlayerIndex = dealerObj.flop(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("Flop round: ")
         if(gameRound == 2):
             curentPlayerIndex = dealerObj.turn(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("Turn round: ")
         if(gameRound == 3):
             curentPlayerIndex = dealerObj.river(players, dealerPlayerIndex)
-            dealerObj.printBoard()
+            dealerObj.printBoard("River round: ")
 
         #Make sure each player updates their hand value
         for p in players:
@@ -88,11 +114,12 @@ def start_table():
         betting_finished = False
 
 
-        #check if betting is needed atall maybe only one player left unfolded
+        #check if betting is needed at all maybe only one player left unfolded
         if(dealerObj.bettingNeeded(players) == True):
             while(betting_finished == False):
                 # promt player for action
                 action = players[curentPlayerIndex].act()
+                print("Game action: " + str(action))
                 curentPlayerIndex = dealerObj.handleAction(action, players, curentPlayerIndex)
                 betting_finished = dealerObj.isBettingFinsihed(players, curentPlayerIndex)
 

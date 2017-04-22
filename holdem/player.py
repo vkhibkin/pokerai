@@ -1,4 +1,5 @@
 import copy
+import re
 
 from hand import hand
 
@@ -33,26 +34,40 @@ class player():
 
     ##################################################
     def act(self):
-        print("Player ", self.ID, "make your move." )
-        action = input(": ")
+        #print("Player ", self.ID, "make your move." )
+        self.print()
+        action = self.processAction()
+		
+        return action
 
+    def processAction(self):
+        action = input(": ")
         if(action == ""):
             print("Achtung!!!, Please input a recognized action!")
-            return self.act()
+            return self.processAction()
         if(action[0] == "h"):
             self.help()
-            return self.act()
+            return self.processAction()
         elif(action[0] == "p"):
             self.print()
             return self.act()
         elif(action[0] == "b"):
-            self.dealer.printBoard()
-            return self.act()
-        elif(action[0] != "c" and action[0] != "f" and action[0] != "r"):
+            self.dealer.printBoard("")
+            return self.processAction()
+        elif(action[0] == "r"):
+            pattern = re.compile("^r\s[0-9]+$")
+            if(pattern.match(action)):
+                action = action
+            else:
+                print("Achtung!!!, Please input a recognized action!")
+                return self.processAction()
+
+        elif(action[0] != "c" and action[0] != "f"):
             print("Achtung!!!, ", action, " is not a recognized action!")
-            return self.act()
+            return self.processAction()
 
         return action
+
 
     # Dictionary of possible player actions
     #
@@ -78,9 +93,11 @@ class player():
     ##################################################
     def print(self):
         print("")
-        print("player: ", self.ID)
-        print("hand ", self.card1.name, " ",self.card1.suit, ", ", self.card2.name, " ", self.card2.suit)
-        print("stack: ", self.stack)
+        stack = "$"+str(self.stack)
+
+        print("Player: ", self.ID)
+        print("Current hand:", self.card1.name,"",self.card1.suit, ",", self.card2.name, "", self.card2.suit)
+        print("Stack:",stack)
 
     ##################################################
     def sub(self, amount):
@@ -89,7 +106,6 @@ class player():
 
     ##################################################
     def add(self, amount):
-        print("add: ", amount)
         self.stack = self.stack + amount
 
 ################################################################################
