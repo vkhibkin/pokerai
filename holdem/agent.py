@@ -1,6 +1,6 @@
 import random
 import os
-import numpy as np
+#import numpy as np
 import math
 from hand import hand
 
@@ -76,6 +76,8 @@ class agent():
                 action = "r " + str(round(.6 * self.stack))
             elif chenScore> 9:
                 action = "r " + str(round(.4 * self.stack))
+            elif chenScore> 4:
+                action = "r " + str(round(.01 * self.stack))
             else:
                 action = "f"
             #print(action)    
@@ -152,11 +154,12 @@ class agent():
             else:
                 score+=5  
          #step 3: Add 2 points if cards are suited
-        tempSuits=[]
-        for x in listOfCards:
-            tempSuits.append(x.suit)
-        temp=np.unique(tempSuits)
-        if len(temp)>1:
+        #tempSuits=[]
+        #for x in listOfCards:
+        #    tempSuits.append(x.suit)
+        #temp=np.unique(tempSuits)
+        #if len(temp)>1:
+        if listOfCards[0]==listOfCards[1]
             score+=2
 
         #step 4 Subtract points if their is a gap between the two cards.
