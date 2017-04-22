@@ -33,7 +33,7 @@ class player():
         self.hand.updateHand(listOfCards)
 
     ##################################################
-    def act(self):
+    def act(self, gameRound):
         #print("Player ", self.ID, "make your move." )
         self.print()
         action = self.processAction()
