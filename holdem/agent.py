@@ -35,7 +35,7 @@ class agent():
         self.hand.updateHand(listOfCards)
 
     ##################################################
-    def act(self):
+    def act(self, gameRound):
         print("Agent ", self.ID)
         #action = input("make your move: ")
 
@@ -217,4 +217,7 @@ class agent():
     def add(self, amount):
         self.stack = self.stack + amount
 
+    ##################################################
+    def recordGame(self, isWin):
+        a = 1
 ################################################################################
