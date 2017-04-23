@@ -4,13 +4,12 @@ import os
 from dealer import dealer
 from player import player
 from agent import agent
+from agentai import agentai
 from card import card
 from hand import hand
 
 ################################################################################
 def init():
-
-
     h = hand(1)
     J = 11
     Q = 12
@@ -18,10 +17,6 @@ def init():
     A = 14
 
     testHand = []
-
-
-
-
 
     # testHand.append(card(5, "5", "dmd"))
     # testHand.append(card(5, "5", "hrt"))
@@ -31,20 +26,9 @@ def init():
     # testHand.append(card(Q, "Q", "c;b"))
     # testHand.append(card(A, "A", "hrt"))
 
-    # testHand.append(card(3, "5", "dmd"))
-    # testHand.append(card(3, "5", "hrt"))
-    # testHand.append(card(10, "4", "clb"))
-    # testHand.append(card(9, "2", "dmd"))
-    # testHand.append(card(10, "3", "spd"))
-    # testHand.append(card(Q, "Q", "c;b"))
-    # testHand.append(card(3, "A", "hrt"))
-
     # h.updateHand(testHand)
     # print(h.hand_rank, ", ", h.highCard)
-
     start_table()
-
-
 
 ################################################################################
 
@@ -53,28 +37,28 @@ def start_table():
     dealerObj = dealer()
 
     level= input("Player 1 level (1-3) or person (0): ")
-
-    
     if level=="1":
         players.append(agent(1, dealerObj,1))
     elif int(level)=="2":
         players.append(agent(1, dealerObj,2))
     elif level=="3":
         players.append(agent(1, dealerObj,3))
+    elif level=="4":
+        players.append(agentai(1, dealerObj))
     else:
         players.append(player(1, dealerObj))
-    print(players[0])
-    level= int(input("Player 2 level (1-3) or person (0): "))
-    if level==1:
+
+    level= input("Player 2 level (1-3) or person (0): ")
+    if level == "1":
         players.append(agent(2, dealerObj,1))
-    elif level==2:
+    elif level == "2":
         players.append(agent(2, dealerObj,2))
-    elif level==3:
+    elif level == "3":
         players.append(agent(2, dealerObj,3))
+    elif level == "4":
+        players.append(agentai(2, dealerObj))
     else:
         players.append(player(2, dealerObj))
-    #players.append(player(3, dealerObj))
-
 
     #flag to keep track of which round of the game is curently in progress
     #A.K.A. prflop, flop, river, turn etc.

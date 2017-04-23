@@ -1,6 +1,7 @@
 import random
 import os
 import math
+import csv
 
 from hand import hand
 
@@ -41,6 +42,21 @@ class agentai():
         self.RIVER_BOARD_SCORE = 10
 
         self.RESULT_WIN = 11
+
+        f = open("agentMemory.csv", "r")
+        reader = csv.reader(f)
+        for record in reader:
+            tempAr = []
+            for i in range(0, len(record) - 1):
+                tempAr.append(float(record[i]))
+
+            if(record[self.RESULT_WIN] == "False"):
+                tempAr.append(False)
+            else:
+                tempAr.append(True)
+            self.recordOfPastGames.append(tempAr)
+        f.close()
+
 
     ##################################################
     def handCards(self, card1, card2):
