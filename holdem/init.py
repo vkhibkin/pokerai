@@ -55,30 +55,11 @@ def start_table():
     w=winner() #===========================================
     players = []
     dealerObj = dealer()
+
     gameObj=game() #===========================================
     players=gameObj.selectPlayers(dealerObj)#===========================================
 
   #  level= input("Player 1 level (1-3) or person (0): ")
-
-    if(False):
-     if level=="1":
-         players.append(agent(1, dealerObj,1))
-     elif int(level)=="2":
-         players.append(agent(1, dealerObj,2))
-     elif level=="3":
-         players.append(agent(1, dealerObj,3))
-     else:
-         players.append(player(1, dealerObj))
-     print(players[0])
-     level= int(input("Player 2 level (1-3) or person (0): "))
-     if level==1:
-         players.append(agent(2, dealerObj,1))
-     elif level==2:
-         players.append(agent(2, dealerObj,2))
-     elif level==3:
-         players.append(agent(2, dealerObj,3))
-     else:
-         players.append(player(2, dealerObj))
     #players.append(player(3, dealerObj))
 
 
