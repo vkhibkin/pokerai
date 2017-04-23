@@ -13,6 +13,7 @@ class dealer():
         self.playerActions = []
         self.board = []
         self.firstPlayerInd = 0
+        self.numGames=0
 
     ##################################################
     def deal(self, players, dealerPlayerIndex):
@@ -182,8 +183,13 @@ class dealer():
             winner.add(playerHand[0].playerParent.ID,totalWining,playerHand[0].playerParent.hand.hand_rank) #=========================
             winner.log() #=============================================
             print("Player", playerHand[0].playerParent.ID," wins:",totalWiningString)
-            a = input("ok: ")
-            return
+            if(self.numGames==0):
+                a = input("ok: ")
+            elif self.numGames==1:
+                return True
+            else:
+                self.numGames-=1
+            return False
 
         playerHand.sort(key = lambda h: h.hand_rank, reverse=True)
         if(playerHand[0].hand_rank == playerHand[1].hand_rank):
@@ -196,8 +202,13 @@ class dealer():
                 winner.add("Tie",totalWining//2,playerHand[0].playerParent.hand.hand_rank)#======================
                 winner.log() #=============================================
                 print("Players tie.")
-                a = input("ok: ")
-                return
+                if(self.numGames==0):
+                    a = input("ok: ")
+                elif self.numGames==1:
+                    return True
+                else:
+                    self.numGames-=1
+                return False
 
         print()
         print("Player 1:", players[0].card1.name, players[0].card1.suit, players[0].card2.name, players[0].card2.suit)
@@ -208,7 +219,13 @@ class dealer():
         winner.log() #=============================================
         players[0].recordGame(True)
         players[1].recordGame(False)
-        a = input("ok: ")
+        if(self.numGames==0):
+            a = input("ok: ")
+        elif self.numGames==1:
+            return True
+        else:
+            self.numGames-=1
+        return False
 
     ##################################################
     def printBoard(self, roundName):

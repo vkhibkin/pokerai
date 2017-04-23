@@ -46,6 +46,8 @@ class game():
 					self.players.append(agentai(2, dealerObj))
 				else:
 					self.players.append(agent(2, dealerObj,level1))
+				numGames=int(input("Enter number of games: "))
+				dealerObj.numGames=numGames
 				selected= 1
 				return self.players
 			else:

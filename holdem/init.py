@@ -45,7 +45,8 @@ def init():
     # print(h.hand_rank, ", ", h.highCard)
     
     initLog()
-    start_table()
+    while True:
+        start_table()
 
 
 
@@ -77,7 +78,9 @@ def start_table():
         ## if start of new game
         if(gameRound == 0):
             #first check who won the previous round which will destribute the winnings to that player
-            dealerObj.checkWinner(gameCount, players,w)#=================================================
+            x=dealerObj.checkWinner(gameCount, players,w)#=================================================
+            if(x):
+                break
             dealerPlayerIndex = (dealerPlayerIndex + 1) % len(players)
             gameCount += 1
             # deal the cards which will reset the pot the game and all other stuff.
@@ -119,7 +122,7 @@ def start_table():
 
     w.printStats() #=============================================
 
-    print("starting new table...")
+    #print("starting new table...")
 
 ################################################################################
 # Clears the log of previous Games
