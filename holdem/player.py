@@ -33,7 +33,7 @@ class player():
         self.hand.updateHand(listOfCards)
 
     ##################################################
-    def act(self, gameRound):
+    def act(self, gameRound, curentPlayerIndex):
         #print("Player ", self.ID, "make your move." )
         self.print()
         action = self.processAction()
@@ -50,7 +50,7 @@ class player():
             return self.processAction()
         elif(action[0] == "p"):
             self.print()
-            return self.act()
+            return self.processAction()
         elif(action[0] == "b"):
             self.dealer.printBoard("")
             return self.processAction()
