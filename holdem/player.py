@@ -48,6 +48,9 @@ class player():
         if(action[0] == "h"):
             self.help()
             return self.processAction()
+        elif(action[0] == "i"):             ###################
+            self.printStats()                ####################################
+            return self.processAction()        ##################################
         elif(action[0] == "p"):
             self.print()
             return self.act()
@@ -85,6 +88,7 @@ class player():
         print("# h: prints out this dictionary as a string")
         print("# p: prints out the current player state")
         print("# b: print out the curent board state")
+        print("# i: print out Game Statistics and Information")################################
         print("#")
         print("# f: fold the round")
         print("# c: call the curent bet on the board")
@@ -109,7 +113,16 @@ class player():
         self.stack = self.stack + amount
 
     ##################################################
+# prints Statistics of All games played in the current Batch
+    def printStats(self):
+        stats = open("gameLog.txt",'r')
+        for l in stats.readlines():
+          print(l)  
+        stats.close()
+
+################################################################################
     def recordGame(self, isWin):
         a = 1
 
 ################################################################################
+
