@@ -108,7 +108,7 @@ def start_table():
         if(dealerObj.bettingNeeded(players) == True):
             while(betting_finished == False):
                 # promt player for action
-                action = players[curentPlayerIndex].act(gameRound)
+                action = players[curentPlayerIndex].act(gameRound, curentPlayerIndex)
                 print("Game action: " + str(action))
                 curentPlayerIndex = dealerObj.handleAction(action, players, curentPlayerIndex)
                 betting_finished = dealerObj.isBettingFinsihed(players, curentPlayerIndex)

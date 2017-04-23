@@ -74,8 +74,13 @@ class hand():
         totalHand = list(totalHand)
         totalHand.sort(key = lambda card: card.ind_val, reverse=True)
 
-        if(totalHand[0].ind_val == 14 and totalHand[1].ind_val == 13
-        and totalHand[2].ind_val == 12 and totalHand[3].ind_val == 11
+        if(len(totalHand) < 5):
+            return False
+
+        if(totalHand[0].ind_val == 14
+        and totalHand[1].ind_val == 13
+        and totalHand[2].ind_val == 12
+        and totalHand[3].ind_val == 11
         and totalHand[4].ind_val == 10):
             return self.checkFlush([totalHand[0],totalHand[1],totalHand[2],totalHand[3],totalHand[4]])
 
@@ -160,21 +165,20 @@ class hand():
         if(len(totalHand) < 5):
             return False
         elif(len(totalHand) == 5):
-            for i in range(0, len(totalHand) - 5):
-                if(totalHand[i].ind_val == (totalHand[i + 1].ind_val - 1)
-                    and totalHand[i].ind_val == (totalHand[i + 2].ind_val - 2)
-                    and totalHand[i].ind_val == (totalHand[i + 3].ind_val - 3)
-                    and totalHand[i].ind_val == (totalHand[i + 4].ind_val - 4)):
-                    return [totalHand[i], totalHand[i + 1], totalHand[i + 2], totalHand[i + 3], totalHand[i + 4]]
+            if(totalHand[0].ind_val == (totalHand[1].ind_val - 1)
+                and totalHand[0].ind_val == (totalHand[2].ind_val - 2)
+                and totalHand[0].ind_val == (totalHand[3].ind_val - 3)
+                and totalHand[0].ind_val == (totalHand[4].ind_val - 4)):
+                return [totalHand[0], totalHand[1], totalHand[2], totalHand[3], totalHand[4]]
         elif(len(totalHand) == 6):
-            for i in range(0, len(totalHand) - 4):
+            for i in range(0, 2):
                 if(totalHand[i].ind_val == (totalHand[i + 1].ind_val - 1)
                     and totalHand[i].ind_val == (totalHand[i + 2].ind_val - 2)
                     and totalHand[i].ind_val == (totalHand[i + 3].ind_val - 3)
                     and totalHand[i].ind_val == (totalHand[i + 4].ind_val - 4)):
                     return [totalHand[i], totalHand[i + 1], totalHand[i + 2], totalHand[i + 3], totalHand[i + 4]]
         elif(len(totalHand) == 7):
-            for i in range(0, len(totalHand) - 3):
+            for i in range(0, 3):
                 if(totalHand[i].ind_val == (totalHand[i + 1].ind_val - 1)
                     and totalHand[i].ind_val == (totalHand[i + 2].ind_val - 2)
                     and totalHand[i].ind_val == (totalHand[i + 3].ind_val - 3)
