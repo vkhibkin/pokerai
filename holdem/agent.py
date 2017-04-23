@@ -3,6 +3,7 @@ import os
 #import numpy as np
 import math
 from hand import hand
+import dealer
 
 
 ################################################################################
@@ -26,7 +27,7 @@ class agent():
     ##################################################
     def calculateHand(self):
         board = self.dealer.board
-        listOfCards = [self.card1, self.card1]
+        listOfCards = [self.card1, self.card2]
 
         for card in board:
             if(card != None):
@@ -68,6 +69,73 @@ class agent():
         elif self.level==3:
             action = agent.ThirdIteration(self, gameRound)
 
+        ## Fourth Iteration AI ##
+        elif self.level==4:
+            opponentIndex = int(self.ID) % 2
+            myIndex = int(self.ID) - 1
+            if gameRound == 0:
+                chenScore=0
+                chenScore=agent.CalculateChen(self)         
+                if chenScore>12:
+                    action = "r " + str(round(.09 * self.stack))
+                elif chenScore>11:
+                    action = "r " + str(round(.08 * self.stack))
+                elif chenScore>10:
+                    action = "r " + str(round(.06 * self.stack))
+                elif chenScore> 9:
+                    action = "r " + str(round(.04 * self.stack))
+                else:
+                    action = "c"
+            elif gameRound == 1:
+                self.calculateHand()
+                if self.dealer.playerActions[myIndex] != '':
+                    action = "c"
+                else:
+                    if self.hand.hand_rank >= 5:
+                        action = "r " + str(min(8, self.stack))
+                    elif self.hand.hand_rank == 4:
+                        action = "r " + str(min(6, self.stack))
+                    elif self.hand.hand_rank == 3:
+                        action = "r " + str(min(4, self.stack))
+                    elif self.hand.hand_rank == 2:
+                        action = "r " + str(min(2, self.stack))
+                    elif self.hand.hand_rank == 1:
+                        action = "c"
+                    elif self.hand.hand_rank == 0:
+                        if self.dealer.playerActions[opponentIndex] == 'r':
+                            action = "f"
+                        else:
+                            action = "c"
+            elif gameRound == 2:
+                self.calculateHand()
+                if self.dealer.playerActions[myIndex] != '':
+                    action = "c"
+                else:
+                    if self.hand.hand_rank >= 3:
+                        action = "r " + str(min(8, self.stack))
+                    elif self.hand.hand_rank == 2:
+                        action = "r " + str(min(4, self.stack))
+                    elif self.hand.hand_rank == 1:
+                        action = "c"
+                    elif self.hand.hand_rank == 0:
+                        if self.dealer.playerActions[opponentIndex] == 'r':
+                            action = "f"
+                        else:
+                            action = "c"
+            elif gameRound == 3:
+                self.calculateHand()
+                if self.dealer.playerActions[myIndex] != '':
+                    action = "c"
+                else:
+                    if self.hand.hand_rank >= 3:
+                        action = "r " + str(min(8, self.stack))
+                    elif self.hand.hand_rank == 2:
+                        action = "c"
+                    elif self.hand.hand_rank <= 1:
+                        if self.dealer.playerActions[opponentIndex] == 'r':
+                            action = "f"
+                        else:
+                            action = "c"
         return action  
 
 

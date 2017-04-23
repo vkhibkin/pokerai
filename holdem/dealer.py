@@ -199,6 +199,9 @@ class dealer():
                 a = input("ok: ")
                 return
 
+        print()
+        print("Player 1:", players[0].card1.name, players[0].card1.suit, players[0].card2.name, players[0].card2.suit)
+        print("Player 2:", players[1].card1.name, players[1].card1.suit, players[1].card2.name, players[1].card2.suit)
         print("Player", playerHand[0].playerParent.ID," wins:",totalWiningString)
         playerHand[0].playerParent.add(totalWining)
         winner.add(playerHand[0].playerParent.ID,totalWining,playerHand[0].playerParent.hand.hand_rank) #=================
