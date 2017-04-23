@@ -138,7 +138,7 @@ class agentai():
                 d += math.fabs(self.gameData[self.RIVER_BOARD_SCORE] - boardScore)
                 curentBetValueIndex = self.RIVER_OPPONENT_BET
                 distances.append(distance(d, record))
-
+        #test changes...
         #figure out if agent is likely to win or loose based on the closest previous games.
         f = 1
         c = 1
