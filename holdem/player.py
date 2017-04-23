@@ -108,4 +108,8 @@ class player():
     def add(self, amount):
         self.stack = self.stack + amount
 
+    ##################################################
+    def recordGame(self, isWin):
+        a = 1
+
 ################################################################################
