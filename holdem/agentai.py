@@ -12,8 +12,6 @@ class distance():
 ################################################################################
 class agentai():
 
-
-
     def __init__(self, ID, dealer):
         self.ID = ID
         self.dealer = dealer
@@ -25,7 +23,6 @@ class agentai():
         self.recordOfPastGames = []
         self.gameData = [None,None,None,None,None,None,None,None,None,None,None,None]
         self.gameRound = 12
-
 
         #Indecies for the gameData array
         self.PREFLOP_OPPONENT_BET = 0
@@ -64,7 +61,7 @@ class agentai():
         self.hand.updateHand(listOfCards)
 
     ##################################################
-    def act(self, gameRound):
+    def act(self, gameRound, curentPlayerIndex):
         listOfAllCards = [self.card1, self.card2]
         listOfBoardCards = []
         for c in self.dealer.board:
@@ -75,7 +72,13 @@ class agentai():
 
         handScore = self.CalculateChen(listOfAllCards)
         boardScore = self.CalculateChen(listOfBoardCards)
-        opponentBet = self.dealer.curentPot[0]
+
+        if(curentPlayerIndex == 0):
+            opponentPlayerIndex = 1
+        else:
+            opponentPlayerIndex = 0
+
+        opponentBet = self.dealer.curentPot[opponentPlayerIndex]
 
         if(gameRound == 0):#collect data for preflop
             self.gameData[self.PREFLOP_OPPONENT_BET] = opponentBet
@@ -92,7 +95,6 @@ class agentai():
             self.gameData[self.RIVER_OPPONENT_BET] = opponentBet
             self.gameData[self.RIVER_HAND_SCORE] = handScore
             self.gameData[self.RIVER_BOARD_SCORE] = boardScore
-
 
         K = 10
 
@@ -138,7 +140,7 @@ class agentai():
                 d += math.fabs(self.gameData[self.RIVER_BOARD_SCORE] - boardScore)
                 curentBetValueIndex = self.RIVER_OPPONENT_BET
                 distances.append(distance(d, record))
-
+        #test changes...
         #figure out if agent is likely to win or loose based on the closest previous games.
         f = 1
         c = 1
@@ -233,34 +235,18 @@ class agentai():
         #need to apply the weight to the random values array and submit the actions.
         random.shuffle(actionAr)
         action = actionAr[0]
-
-        if (action == "r"):
-            value = random.random() * 80
-            print("raise: ", int(value))
-            action = "r " + str(int(value))
-
-        #if(action == "f"):
-        #if(action == "c"):
         if(action == "r"):
-
             action = "r " + str(lowestBet)
-
         if(action == "m"):
-
             action = "r " + str(averageBet)
-
         if(action == "h"):
             action = "r " + str(highestBet)
-
-        print("Agent ai action: ",action)
-        # m = input("agent ai move:")
-        # return m
-        m = input("agent ai move:")
-
-        #if agent opts to fold clear the game data, we wont be storing it
         if(action == "f"):
+            #if agent opts to fold clear the game data, we wont be storing it
             self.gameData = [None, None, None, None, None, None, None, None, None, None, None, None]
 
+        print("Agent ai action: ",action)
+        m = input("agent ai move:")
         return action
 
     ##################################################
@@ -357,8 +343,6 @@ class agentai():
             gap = listOfAllCards[i].ind_val - listOfAllCards[i + 1].ind_val
             gapScore = (14 - gap) * 0.25
             score += gapScore
-
-            print("gap: ",i,": ",gap)
 
         #step 5 Round half point scores up
         score = round(score)

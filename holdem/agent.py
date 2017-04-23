@@ -36,7 +36,7 @@ class agent():
         self.hand.updateHand(listOfCards)
 
     ##################################################
-    def act(self, gameRound):
+    def act(self, gameRound, curentPlayerIndex):
         print("Agent ", self.ID)
         #action = input("make your move: ")
 
