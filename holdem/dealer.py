@@ -66,6 +66,8 @@ class dealer():
                     highest_bet = p
 
             amount_to_call = highest_bet - player_has_bet_so_far
+            if amount_to_call> players[curentPlayerIndex].stack:
+                amount_to_call = players[curentPlayerIndex].stack
             players[curentPlayerIndex].sub(amount_to_call)
             self.curentPot[curentPlayerIndex] += amount_to_call
 
