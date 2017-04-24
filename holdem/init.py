@@ -21,10 +21,6 @@ def init():
 
     testHand = []
 
-
-
-
-
     # testHand.append(card(5, "5", "dmd"))
     # testHand.append(card(5, "5", "hrt"))
     # testHand.append(card(4, "4", "clb"))
