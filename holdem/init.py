@@ -40,9 +40,10 @@ def init():
     # h.updateHand(testHand)
     # print(h.hand_rank, ", ", h.highCard)
     
+ 
+    #while True:
     initLog()
-    while True:
-        start_table()
+    start_table()
 
 
 
@@ -117,7 +118,15 @@ def start_table():
 
 
     w.printStats() #=============================================
-
+    if(500 > players[0].stack):
+        print("Player 1 lost: $" + str(500 - players[0].stack))
+    else:
+        print("Player 1 won: $" + str(players[0].stack - 500))
+    () #=============================================
+    if(500 > players[1].stack):
+        print("Player 2 lost: $" + str(500 - players[1].stack))
+    else:
+        print("Player 2 won: $" + str(players[1].stack - 500))
     #print("starting new table...")
 
 ################################################################################
