@@ -45,9 +45,9 @@ class agent():
             action = random.sample(["c","f","r"],1)
             print(action)
             if (action[0] == "r"):
-                value = random.random() * self.stack
+                value = random.uniform(0,.25) * self.stack
                 #print(int(value))
-                action = "r " + str(int(value))
+                action = "r " + str((int(value)))
             
         ########################
 
@@ -59,8 +59,8 @@ class agent():
             elif (rnd < 0.8):
                 action = "c"
             else:
-                value = random.random() * self.stack
-                print(int(value))
+                value = random.uniform(0,.25) * self.stack
+                #print(int(value))
                 action = "r " + str(int(value))
 
             
@@ -166,7 +166,7 @@ class agent():
         chenScore=0
         chenScore=agent.CalculateChen(self)
         if gameRound ==1:
-            if chenScore>12:
+            if chenScore>15:
                 action = "r " + str(round(.09 * self.stack))
             elif chenScore>11:
                 action = "r " + str(round(.08 * self.stack))
@@ -177,7 +177,7 @@ class agent():
             else:
                 action = "f"
         elif gameRound == 2:
-            if chenScore>12:
+            if chenScore>15:
                 action = "r " + str(round(.09 * self.stack))
             elif chenScore>11:
                 action = "r " + str(round(.08 * self.stack))
@@ -190,7 +190,7 @@ class agent():
             else:
                 action = "f"
         else:
-            if chenScore>12:
+            if chenScore>15:
                 action = "r " + str(round(.09 * self.stack))
             elif chenScore>11:
                 action = "r " + str(round(.08 * self.stack))
