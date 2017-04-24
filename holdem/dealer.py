@@ -184,7 +184,7 @@ class dealer():
             playerHand[0].playerParent.add(totalWining)
             winner.add(playerHand[0].playerParent.ID,totalWining,playerHand[0].playerParent.hand.hand_rank) #=========================
             winner.log() #=============================================
-            print("Player", playerHand[0].playerParent.ID," wins:",totalWiningString)
+            print("Player", playerHand[0].playerParent.ID," wins:", totalWiningString)
             if(self.numGames==0):
                 a = input("ok: ")
             elif self.numGames==1:
@@ -219,8 +219,9 @@ class dealer():
         playerHand[0].playerParent.add(totalWining)
         winner.add(playerHand[0].playerParent.ID,totalWining,playerHand[0].playerParent.hand.hand_rank) #=================
         winner.log() #=============================================
-        players[0].recordGame(True)
-        players[1].recordGame(False)
+        playerHand[0].playerParent.recordGame(True)
+        playerHand[1].playerParent.recordGame(False)
+
         if(self.numGames==0):
             a = input("ok: ")
         elif self.numGames==1:

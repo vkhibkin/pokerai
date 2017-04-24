@@ -187,6 +187,9 @@ class agentai():
             averageBet = math.floor(averageBet / K)
 
             winingRatio = W / K
+            if(winingRatio == 0):
+                winingRatio = 0.001
+
             f = 0.08 / math.pow((3 * winingRatio), 1.2)
             if(winingRatio < 0.2):
                 c = 0.08 / math.pow((3 * (0.22 - winingRatio)), 1.2)
@@ -251,17 +254,17 @@ class agentai():
         random.shuffle(actionAr)
         action = actionAr[0]
         if(action == "r"):
-            action = "r " + str(lowestBet)
+            action = "r " + str(math.ceil(lowestBet))
         if(action == "m"):
-            action = "r " + str(averageBet)
+            action = "r " + str(math.ceil(averageBet))
         if(action == "h"):
-            action = "r " + str(highestBet)
+            action = "r " + str(math.ceil(highestBet))
         if(action == "f"):
             #if agent opts to fold clear the game data, we wont be storing it
             self.gameData = [None, None, None, None, None, None, None, None, None, None, None, None]
 
         print("Agent ai action: ",action)
-        m = input("agent ai move:")
+        #m = input("agent ai move:")
         return action
 
     ##################################################
