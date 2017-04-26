@@ -70,7 +70,7 @@ def start_table():
     #this is the player that holds the dealer chip
     #next person is the small blind
     dealerPlayerIndex = -1
-
+    gameLimit = 3 #Set Game limit. 
     while(True):
         ## if start of new game
         if(gameRound == 0):
@@ -80,6 +80,8 @@ def start_table():
                 break
             dealerPlayerIndex = (dealerPlayerIndex + 1) % len(players)
             gameCount += 1
+            if(gameCount>gameLimit): # Checks Game Limit
+                break
             # deal the cards which will reset the pot the game and all other stuff.
             curentPlayerIndex = dealerObj.deal(players, dealerPlayerIndex)
             dealerObj.printBoard("Pre-flop round: ")
